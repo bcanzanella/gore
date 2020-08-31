@@ -1,4 +1,4 @@
-_.min = function(obj, iteratee, context) {
+_.min = function (obj, iteratee, context) {
 	var result = Infinity,
 		lastComputed = Infinity,
 		value,
@@ -14,9 +14,10 @@ _.min = function(obj, iteratee, context) {
 				result = value;
 			}
 		}
+		// woo
 	} else {
 		iteratee = cb(iteratee, context);
-		_.each(obj, function(v, index, list) {
+		_.each(obj, function (v, index, list) {
 			computed = iteratee(v, index, list);
 			if (computed < lastComputed || (computed === Infinity && result === Infinity)) {
 				result = v;
@@ -27,11 +28,11 @@ _.min = function(obj, iteratee, context) {
 	return result;
 };
 
-_.shuffle = function(obj) {
+_.shuffle = function (obj) {
 	return _.sample(obj, Infinity);
 };
 
-_.sample = function(obj, n, guard) {
+_.sample = function (obj, n, guard) {
 	if (n == null || guard) {
 		if (!isArrayLike(obj)) obj = _.values(obj);
 		return obj[_.random(obj.length - 1)];
@@ -49,17 +50,17 @@ _.sample = function(obj, n, guard) {
 	return sample.slice(0, n);
 };
 
-_.sortBy = function(obj, iteratee, context) {
+_.sortBy = function (obj, iteratee, context) {
 	var index = 0;
 	iteratee = cb(iteratee, context);
 	return _.pluck(
-		_.map(obj, function(value, key, list) {
+		_.map(obj, function (value, key, list) {
 			return {
 				value: value,
 				index: index++,
-				criteria: iteratee(value, key, list)
+				criteria: iteratee(value, key, list),
 			};
-		}).sort(function(left, right) {
+		}).sort(function (left, right) {
 			var a = left.criteria;
 			var b = right.criteria;
 			if (a !== b) {
@@ -72,11 +73,11 @@ _.sortBy = function(obj, iteratee, context) {
 	);
 };
 
-var group = function(behavior, partition) {
-	return function(obj, iteratee, context) {
+var group = function (behavior, partition) {
+	return function (obj, iteratee, context) {
 		var result = partition ? [[], []] : {};
 		iteratee = cb(iteratee, context);
-		_.each(obj, function(value, index) {
+		_.each(obj, function (value, index) {
 			var key = iteratee(value, index, obj);
 			behavior(result, value, key);
 		});
@@ -84,15 +85,14 @@ var group = function(behavior, partition) {
 	};
 };
 
-_.groupBy = group(function(result, value, key) {
-	if (has(result, key)) { 
+_.groupBy = group(function (result, value, key) {
+	if (has(result, key)) {
 		result[key].push(value);
-	}
-	else {
+	} else {
 		result[key] = [value];
 	}
 });
 
-_.indexBy = group(function(result, value, key) {
+_.indexBy = group(function (result, value, key) {
 	result[key] = value;
 });
