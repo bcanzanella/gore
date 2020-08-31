@@ -8,7 +8,7 @@ function superNewStuff() {
     // foo
     // foo
     // foo
-    return 1 + 1;
+    return 1 + 1 + 1 + 1;
 }
 
 function isPrime(num) {
